@@ -40,12 +40,16 @@ def reactor_efficiency(voltage, current, theoretical_max_power):
     where generated power = voltage * current
     """
     generated_power = voltage * current
-    perc_value = (generated_power / theoretical_max_power)*100
-    if perc_value > 80:
+    percent_value = (generated_power / theoretical_max_power)*100
+    perc_value = int(percent_value)
+    if perc_value >= 80:
         return 'green'
-    elif prec_value < 80 and perc_value >= 60:
+    elif perc_value < 80 and perc_value >= 60:
         return 'orange'
-    elif prec_
+    elif perc_value < 60 and perc_value >= 30:
+        return 'red'
+    elif perc_value < 30:
+        return 'black'
     
     
 
@@ -62,5 +66,22 @@ def fail_safe(temperature, neutrons_produced_per_second, threshold):
     - `temperature * neutrons per second` +/- 10% of `threshold` == 'NORMAL'
     - `temperature * neutrons per second` is not in the above-stated ranges ==  'DANGER'
     """
-
-    pass
+    
+    reactor_val = (temperature * neutrons_produced_per_second)
+    th_val = threshold
+    ten_percent = (th_val * 0.10)
+    ninety_percent = th_val - ten_percent
+    hundred_and_ten_percent = th_val + ten_percent
+    
+    #If the reactor_value is < 90% of the threshold - return LOW
+    if reactor_val < (th_val * 0.90):
+        return 'LOW'
+    #If the relactor value is between 110% and 90% of the threshold - return NORMAL
+    elif reactor_val <= hundred_and_ten_percent and reactor_val >= ninety_percent:
+        return 'NORMAL'
+    #Otherwise, return DANGER
+    else:
+        return 'DANGER'
+    
+    
+    

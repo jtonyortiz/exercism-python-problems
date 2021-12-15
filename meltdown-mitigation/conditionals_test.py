@@ -9,7 +9,6 @@ class MeltdownMitigationTest(unittest.TestCase):
     """Test cases for Meltdown mitigation exercise.
     """
 
-    @pytest.mark.task(taskno=1)
     def test_is_criticality_balanced(self):
         """Testing border cases around typical points.
 
@@ -34,7 +33,6 @@ class MeltdownMitigationTest(unittest.TestCase):
                                    f'with T={temp} and neutrinos={neutrons_emitted}')
                 self.assertEqual(actual_result, expected, failure_message)
 
-    @pytest.mark.task(taskno=2)
     def test_reactor_efficiency(self):
         voltage = 10
         theoretical_max_power = 10000
@@ -56,7 +54,6 @@ class MeltdownMitigationTest(unittest.TestCase):
                                    f'with voltage={voltage}, current={current}, max_pow={theoretical_max_power}')
                 self.assertEqual(actual_result, expected, failure_message)
 
-    @pytest.mark.task(taskno=3)
     def test_fail_safe(self):
         temp = 10
         threshold = 10000
